@@ -1,0 +1,3 @@
+[submodule "IL"]
+	path = IL
+	url = https://github.com/LejuRobotics/kuavo_data_challenge.git
