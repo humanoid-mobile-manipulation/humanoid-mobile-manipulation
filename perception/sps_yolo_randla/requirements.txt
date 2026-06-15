@@ -1,0 +1,11 @@
+opencv-python
+numpy
+torch
+torchvision
+torch-points-kernels
+ultralytics
+tqdm
+tensorboard
+matplotlib
+PyQt5
+pyrealsense2

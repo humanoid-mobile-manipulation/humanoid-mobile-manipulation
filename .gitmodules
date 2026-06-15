@@ -1,6 +1,3 @@
-[submodule "IL"]
-	path = IL
-	url = https://github.com/LejuRobotics/kuavo_data_challenge.git
 [submodule "kuavo_ros_application/kuavo"]
 	path = kuavo_ros_application/kuavo
 	url = https://github.com/LejuRobotics/kuavo-ros-opensource.git
