@@ -1,8 +1,7 @@
 """Public Point-LIO/GLIM/NDT navigation pipeline reference.
 
-This module records the paper-level navigation interfaces without exposing
-private launch files, host credentials, Docker image links, or factory-specific
-calibration values.
+This module records the navigation interfaces used by the Point-LIO, GLIM, and
+NDT workflow.
 """
 
 from dataclasses import dataclass
@@ -52,7 +51,7 @@ NAVIGATION_PIPELINE_INTERFACES: Tuple[NavigationInterface, ...] = (
         name="Rack-facing target pose",
         kind="source",
         path_or_topic="manipulation/configs/config_real.py",
-        purpose="Stores calibrated SMT standing poses as x, y, and yaw.",
+        purpose="Stores calibrated SPS or SMT standing poses as x, y, and yaw.",
     ),
     NavigationInterface(
         name="Navigation command service",

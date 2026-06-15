@@ -1,9 +1,7 @@
-"""Public SMT AR-tag/KMPC pipeline interface reference.
+"""Public AR-tag/KMPC pipeline interface reference.
 
-This file intentionally contains no private launch commands, credentials,
-factory-specific coordinates, or internal artifact links. It records the public
-interfaces and repository paths that connect the SMT pipeline described in the
-paper.
+This file records the interfaces and repository paths that connect the
+structured AR-tag/KMPC pipeline described in the paper.
 """
 
 from dataclasses import dataclass
@@ -50,7 +48,7 @@ SMT_PIPELINE_INTERFACES: Tuple[PipelineInterface, ...] = (
         purpose="Cancels the active navigation goal during safety stops or task transitions.",
     ),
     PipelineInterface(
-        name="SMT tag helper",
+        name="AR-tag pose helper",
         kind="source",
         path_or_topic="manipulation/strategy_sps.py:subscribe_and_print_tag_info",
         purpose="Reads the selected AR-tag pose from the detection topic.",
@@ -83,8 +81,8 @@ SMT_PIPELINE_INTERFACES: Tuple[PipelineInterface, ...] = (
 
 
 def describe_pipeline() -> str:
-    """Return a human-readable summary of public SMT pipeline interfaces."""
-    lines = ["SMT AR-tag/KMPC public pipeline interfaces:"]
+    """Return a human-readable summary of public AR-tag/KMPC interfaces."""
+    lines = ["AR-tag/KMPC public pipeline interfaces:"]
     for item in SMT_PIPELINE_INTERFACES:
         lines.append(f"- {item.name} [{item.kind}]: {item.path_or_topic} -- {item.purpose}")
     return "\n".join(lines)

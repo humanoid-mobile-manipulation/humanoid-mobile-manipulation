@@ -5,15 +5,18 @@ visual perception pipeline. It covers RGB-D data capture, YOLO segmentation
 training, candidate-mask score labeling, RandLA-Net score training, and an
 end-to-end inference/deployment reference.
 
-The scripts were recovered from the project training/deployment workflow. Some
-paths and checkpoints are intentionally left as user-configurable inputs because
-the original datasets and model weights are not included in this repository.
+The scripts use configurable dataset, checkpoint, and camera-calibration paths
+so they can be adapted to a local setup.
 
 This module corresponds to the paper's SPS learning-based visual perception
 pipeline in Sec. III-C. It is separate from `imitation_learning_framework/`:
 the perception pipeline selects the target-part candidate that downstream
 manipulation or IL policy code can consume, but it is not itself an IL
 policy-training module.
+
+In the full SPS workflow, this module provides the learning-based visual target
+selection stage. The downstream learning-based manipulation policy is trained
+and deployed through `imitation_learning_framework/IL/`.
 
 ## Pipeline
 
@@ -28,15 +31,14 @@ policy-training module.
 6. Train the RandLA-Net scorer to predict the manually labeled graspability score.
 7. Run the whole-image inference script to segment candidates, score each mask,
    and select the highest-scoring candidate.
+8. Pass the selected candidate to the downstream SPS manipulation or
+   imitation-learning policy interface.
 
-## Public Setup Level
+## Environment Setup
 
-This public README describes the reproducible training and inference path, not
-the original workstation runbook. A local deployment should provide its own
-camera launch files, Python environment, CUDA or CPU wheel selection, ROS
-workspace paths, and calibrated camera intrinsics. Internal package archives,
-private download links, account names, and fixed machine paths are intentionally
-excluded.
+A local deployment should provide camera launch files, a Python environment,
+CUDA or CPU wheel selection, ROS workspace paths, and calibrated camera
+intrinsics.
 
 ## Files
 
@@ -44,7 +46,7 @@ excluded.
 | --- | --- |
 | `data_collection/collect_rgbd_dataset.py` | RGB-D collection script for RealSense and Orbbec cameras. |
 | `data_preparation/prepare_rgbd_dataset.py` | Utility for reorganizing raw RGB/depth captures. |
-| `data_preparation/prepare_factory_rgbd_dataset.py` | Utility for reorganizing factory capture folders. |
+| `data_preparation/prepare_site_rgbd_dataset.py` | Utility for reorganizing site-capture folders. |
 | `yolo_segmentation/train_yolo_segmentation.py` | Ultralytics YOLO segmentation training entry point. |
 | `mask_score/candidate_mask_score_labeler.py` | PyQt tool for scoring detected YOLO masks. |
 | `mask_score/build_mask_score_dataset.py` | Converts scored masks and depth maps into train/test PKL samples. |
@@ -92,8 +94,8 @@ Recommended public data preparation steps:
    another tool that can export YOLO segmentation labels.
 3. Store the dataset in YOLO segmentation format and point the training script
    to its `data.yaml`.
-4. Keep raw datasets and trained weights outside the public repository unless
-   they are explicitly cleared for release.
+4. Store raw datasets and trained weights in local data directories and point
+   the scripts to those paths.
 
 ## RandLA-Net Scorer Training
 
@@ -161,6 +163,3 @@ a training/held-out evaluation split instead of claiming three splits.
 - `deployment_reference/` is provided to document how the perception output was
   connected in a ROS deployment. The paper's SPS perception ablation only needs
   the YOLO segmentation and RandLA-Net scoring path above.
-- Deployment commands for a specific NUC, Orin, RealSense, or Orbbec setup
-  should be kept in a local lab runbook unless they only reference public
-  launch files and placeholder paths.
