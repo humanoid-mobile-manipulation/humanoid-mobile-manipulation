@@ -1,7 +1,7 @@
-"""Public AR-tag/KMPC pipeline interface reference.
+"""Public SMT AR-tag/KMPC pipeline interface reference.
 
-This file records the interfaces and repository paths that connect the
-structured AR-tag/KMPC pipeline described in the paper.
+This file records the interfaces and repository paths that connect the SMT
+AR-tag/KMPC pipeline described in the paper.
 """
 
 from dataclasses import dataclass
@@ -82,7 +82,7 @@ SMT_PIPELINE_INTERFACES: Tuple[PipelineInterface, ...] = (
 
 def describe_pipeline() -> str:
     """Return a human-readable summary of public AR-tag/KMPC interfaces."""
-    lines = ["AR-tag/KMPC public pipeline interfaces:"]
+    lines = ["SMT AR-tag/KMPC public pipeline interfaces:"]
     for item in SMT_PIPELINE_INTERFACES:
         lines.append(f"- {item.name} [{item.kind}]: {item.path_or_topic} -- {item.purpose}")
     return "\n".join(lines)

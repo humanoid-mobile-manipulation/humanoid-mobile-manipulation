@@ -20,7 +20,7 @@ NAVIGATION_PIPELINE_INTERFACES: Tuple[NavigationInterface, ...] = (
     NavigationInterface(
         name="MID360 LiDAR input",
         kind="source",
-        path_or_topic="navigation/point_lio_glim_ndt/scripts/start_mid360_driver.sh",
+        path_or_topic="navigation/shared_lidar_navigation/scripts/start_mid360_driver.sh",
         purpose="Starts the MID360 ROS driver and publishes LiDAR and IMU data.",
     ),
     NavigationInterface(
@@ -74,25 +74,25 @@ NAVIGATION_PIPELINE_INTERFACES: Tuple[NavigationInterface, ...] = (
     NavigationInterface(
         name="Dynamic-obstacle halt",
         kind="source",
-        path_or_topic="navigation/point_lio_glim_ndt/dynamic_obstacle_halt_monitor.py",
+        path_or_topic="navigation/shared_lidar_navigation/dynamic_obstacle_halt_monitor.py",
         purpose="Implements stop-zone detection and publishes a navigation halt flag.",
     ),
     NavigationInterface(
         name="2D navigation startup",
         kind="source",
-        path_or_topic="navigation/point_lio_glim_ndt/scripts/start_2d_navigation.sh",
+        path_or_topic="navigation/shared_lidar_navigation/scripts/start_2d_navigation.sh",
         purpose="Starts move_base or straight command-velocity navigation; straight mode can enable obstacle detection.",
     ),
     NavigationInterface(
         name="2D mapping startup",
         kind="source",
-        path_or_topic="navigation/point_lio_glim_ndt/scripts/start_2d_mapping.sh",
+        path_or_topic="navigation/shared_lidar_navigation/scripts/start_2d_mapping.sh",
         purpose="Starts 2D map construction for navigation from the LiDAR SLAM map.",
     ),
     NavigationInterface(
         name="Relocalization score check",
         kind="source",
-        path_or_topic="navigation/point_lio_glim_ndt/scripts/check_relocalization_score.sh",
+        path_or_topic="navigation/shared_lidar_navigation/scripts/check_relocalization_score.sh",
         purpose="Reads the latest NDT relocalization score and compares it with the configured threshold.",
     ),
 )

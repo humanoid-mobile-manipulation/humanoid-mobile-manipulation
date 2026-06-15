@@ -8,14 +8,14 @@ This repository is part of our ongoing research work, which is currently under s
 
 | Module | Repository location | Notes |
 | --- | --- | --- |
-| SPS YOLOv12/RandLA-Net perception pipeline | `perception/sps_yolo_randla/` | RGB-D capture, data preparation, YOLO segmentation training, candidate-mask score labeling, RandLA-Net scorer training, and whole-image inference reference. |
-| AR-tag/KMPC manipulation reference | `manipulation/smt_ar_tag_kmpc/` | Reference for AR-tag localization, light-selected target IDs, calibrated navigation stand poses, and model-based KMPC/mobile manipulation integration. |
-| Shared Point-LIO/GLIM/NDT navigation pipeline | `navigation/point_lio_glim_ndt/` | Runtime templates for LiDAR-inertial localization, NDT scan matching, 2D mapping/navigation, navigation pose calibration, and dynamic-obstacle halt logic used by the task workflows. |
+| SPS YOLOv12/RandLA-Net perception pipeline | `perception/sps_part_perception/` | RGB-D capture, data preparation, YOLO segmentation training, candidate-mask score labeling, RandLA-Net scorer training, and whole-image inference reference. |
+| AR-tag/KMPC manipulation reference | `manipulation/smt_tag_kmpc_manipulation/` | Reference for AR-tag localization, light-selected target IDs, calibrated navigation stand poses, and model-based KMPC/mobile manipulation integration. |
+| Shared Point-LIO/GLIM/NDT navigation pipeline | `navigation/shared_lidar_navigation/` | Runtime templates for LiDAR-inertial localization, NDT scan matching, 2D mapping/navigation, navigation pose calibration, and dynamic-obstacle halt logic used by the task workflows. |
 | SPS manipulation strategy | `manipulation/` | Task-level SPS strategy scripts and real/simulation configuration. |
 | Kuavo ROS control and manipulation infrastructure | `kuavo_ros_application/` | Robot SDK, ROS messages/services, demos, navigation/control infrastructure, and deployment utilities. |
 | Imitation-learning framework | `imitation_learning_framework/` | LeRobot/Kuavo data conversion, policy training, and deployment examples. |
 
-The SPS perception code under `perception/sps_yolo_randla/` is the main
+The SPS perception code under `perception/sps_part_perception/` is the main
 paper-specific addition for the YOLO/RandLA-Net pipeline. Datasets and trained
 weights are not included in this repository; the scripts document the training
 and deployment workflow used by the project.
@@ -33,13 +33,13 @@ part of the workflow.
 
 1. Initialize the repository submodules so that the Kuavo control tree and the
    imitation-learning framework are available.
-2. Configure the shared navigation stack in `navigation/point_lio_glim_ndt/` to
+2. Configure the shared navigation stack in `navigation/shared_lidar_navigation/` to
    build or load the map, record rack-facing stand poses, run 2D navigation,
    and enable dynamic-obstacle halt logic.
-3. For the SPS workflow, use `perception/sps_yolo_randla/` for YOLO/RandLA-Net
+3. For the SPS workflow, use `perception/sps_part_perception/` for YOLO/RandLA-Net
    candidate selection and `imitation_learning_framework/IL/` for the
    learning-based manipulation policy.
-4. For the SMT workflow, use `manipulation/smt_ar_tag_kmpc/` for AR-tag
+4. For the SMT workflow, use `manipulation/smt_tag_kmpc_manipulation/` for AR-tag
    localization, selected target IDs, stand-pose lookup, and model-based
    KMPC/Bezier manipulation interfaces.
 5. Use `kuavo_ros_application/kuavo/` as the shared robot-control dependency
@@ -69,20 +69,20 @@ This directory contains the code for manipulation tasks. It includes:
 - `case_sps.py`: Specific case implementations for manipulation.
 - `strategy_sps.py`: Strategies for manipulation tasks.
 - `configs/`: Configuration files for real and simulated environments.
-- `smt_ar_tag_kmpc/`: AR-tag/KMPC pipeline interface reference.
+- `smt_tag_kmpc_manipulation/`: AR-tag/KMPC pipeline interface reference.
 
 ### 4. `perception/`
 This directory contains paper-specific perception code. Key components include:
-- `sps_yolo_randla/data_collection/`: RGB-D capture for RealSense and Orbbec cameras.
-- `sps_yolo_randla/data_preparation/`: Utilities for reorganizing raw RGB/depth captures.
-- `sps_yolo_randla/yolo_segmentation/`: Ultralytics YOLO segmentation training entry point.
-- `sps_yolo_randla/mask_score/`: Candidate-mask score labeling, dataset conversion, and RandLA-Net score training/testing code.
-- `sps_yolo_randla/inference/`: Whole-image segmentation and mask-score inference reference.
-- `sps_yolo_randla/deployment_reference/`: ROS deployment reference for connecting perception output to the downstream grasping service.
+- `sps_part_perception/data_collection/`: RGB-D capture for RealSense and Orbbec cameras.
+- `sps_part_perception/data_preparation/`: Utilities for reorganizing raw RGB/depth captures.
+- `sps_part_perception/yolo_segmentation/`: Ultralytics YOLO segmentation training entry point.
+- `sps_part_perception/mask_score/`: Candidate-mask score labeling, dataset conversion, and RandLA-Net score training/testing code.
+- `sps_part_perception/inference/`: Whole-image segmentation and mask-score inference reference.
+- `sps_part_perception/deployment_reference/`: ROS deployment reference for connecting perception output to the downstream grasping service.
 
 ### 5. `navigation/`
 This directory contains paper-specific navigation references:
-- `point_lio_glim_ndt/`: Interface mapping and runtime templates for the Point-LIO, GLIM, and NDT navigation stack shared by the SPS and SMT workflows. It documents the `/set_nav_goal_2D` navigation service, 2D mapping/navigation startup scripts, relocalization score checks, and a testable dynamic-obstacle halt monitor.
+- `shared_lidar_navigation/`: Interface mapping and runtime templates for the Point-LIO, GLIM, and NDT navigation stack shared by the SPS and SMT workflows. It documents the `/set_nav_goal_2D` navigation service, 2D mapping/navigation startup scripts, relocalization score checks, and a testable dynamic-obstacle halt monitor.
 
 ## Notes
 - This repository is a research release under active development.

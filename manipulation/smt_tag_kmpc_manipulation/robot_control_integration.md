@@ -1,6 +1,6 @@
-# Kuavo Control Source Map
+# Robot Control Integration
 
-This file maps the robot-control components used by the AR-tag/KMPC
+This file maps the robot-control components used by the SMT AR-tag/KMPC
 manipulation reference to the pinned Kuavo ROS application submodule. The
 submodule is checked out under `kuavo_ros_application/kuavo` and provides the
 reusable robot-control infrastructure. The task logic remains in

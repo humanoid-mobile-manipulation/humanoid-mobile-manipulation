@@ -69,7 +69,7 @@ https://docs.ultralytics.com/tasks/segment/
 Prepare a YOLO segmentation dataset with a `data.yaml`, then run:
 
 ```bash
-cd perception/sps_yolo_randla
+cd perception/sps_part_perception
 python3 yolo_segmentation/train_yolo_segmentation.py
 ```
 
@@ -129,7 +129,7 @@ The historical training defaults in `mask_score/train_mask_score_model.py` are:
 Run:
 
 ```bash
-cd perception/sps_yolo_randla
+cd perception/sps_part_perception
 python3 mask_score/build_mask_score_dataset.py --data_root mask_score/data_org_files --output_root mask_score/scoredds_pklfiles --train_ratio 0.7
 python3 mask_score/train_mask_score_model.py
 ```

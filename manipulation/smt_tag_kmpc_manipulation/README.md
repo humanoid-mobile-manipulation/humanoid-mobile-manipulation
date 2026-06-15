@@ -1,23 +1,23 @@
-# AR-Tag and KMPC Manipulation Reference
+# SMT AR-Tag and KMPC Manipulation Reference
 
 This directory documents the AR-tag localization and KMPC manipulation
-reference used by the structured task workflow.
+reference used by the SMT workflow.
 
 ## Pipeline Components
 
-The structured task workflow localizes the target part or tray with AR tags,
-navigates the robot to a calibrated standing pose near the rack, and executes a
-model-based arm trajectory with KMPC.
+The SMT workflow localizes the target part or tray with AR tags, navigates the
+robot to a calibrated standing pose near the rack, and executes a model-based
+arm trajectory with KMPC.
 
 | Component | Repository location | Role |
 | --- | --- | --- |
 | AR-tag visual localization | `kuavo_ros_application/kuavo/src/hand_eye_calibration/aruco_ros/`, `kuavo_ros_application/kuavo/src/ros_vision/detection_apriltag/` when available in the checked-out Kuavo tree | Detects rack/tray tags and publishes tag detections. |
 | Light-selected target ID | `/red_tag_ids`, `/blue_tag_ids` topics consumed by `manipulation/strategy_sps.py` | Converts the active indicator light into the tag ID order to process. |
 | Navigation to calibrated stand pose | `manipulation/strategy_sps.py:start_navigation`, `manipulation/configs/config_real.py` | Sends the robot to the pre-calibrated rack-facing pose before manipulation. |
-| Point-LIO/GLIM/NDT navigation | `navigation/point_lio_glim_ndt/` | Documents the shared navigation pipeline used before manipulation. |
+| Point-LIO/GLIM/NDT navigation | `navigation/shared_lidar_navigation/` | Documents the shared navigation pipeline used before manipulation. |
 | AR-tag pose query | `manipulation/strategy_sps.py:subscribe_and_print_tag_info` | Reads the detected tag pose for the selected target. |
-| KMPC/mobile manipulation controller | `kuavo_ros_application/kuavo/src/humanoid-control/mobile_manipulator_controllers/` | Provides the model-based mobile manipulation controller used by the structured task pipeline. |
-| Kuavo control source map | `manipulation/smt_ar_tag_kmpc/kuavo_control_source_map.md` | Maps the pinned control submodule to KMPC, Bezier trajectory planning, single-step refinement, and tag detection sources. |
+| KMPC/mobile manipulation controller | `kuavo_ros_application/kuavo/src/humanoid-control/mobile_manipulator_controllers/` | Provides the model-based mobile manipulation controller used by the SMT pipeline. |
+| Robot control integration | `manipulation/smt_tag_kmpc_manipulation/robot_control_integration.md` | Maps the pinned control submodule to KMPC, Bezier trajectory planning, single-step refinement, and tag detection sources. |
 | Task-level interfaces | `manipulation/strategy_sps.py`, `manipulation/configs/`, and local task scripts | Connect navigation, perception, arm motion, grasping, and retreat actions. |
 
 ## Public Execution Outline
@@ -35,8 +35,8 @@ model-based arm trajectory with KMPC.
 
 ## Runtime Checks
 
-For a deployment environment, the structured task pipeline is considered
-connected when the following checks pass:
+For a deployment environment, the SMT pipeline is considered connected when the
+following checks pass:
 
 - `/robot_tag_info` publishes the target rack or tray tag pose;
 - `/red_tag_ids` or `/blue_tag_ids` publishes the selected target ID when the
@@ -50,7 +50,7 @@ connected when the following checks pass:
 
 ## Calibration Inputs
 
-For a new lab setup, reproduce the structured task pipeline by calibrating:
+For a new lab setup, reproduce the SMT pipeline by calibrating:
 
 - camera intrinsics and camera-to-robot extrinsics;
 - AR-tag family, AR-tag ID, physical tag size, and tag-to-part offset;
@@ -73,5 +73,5 @@ camera image/depth
   -> grasp and retreat sequence
 ```
 
-Use `smt_pipeline_interfaces.py` for a compact list of the relevant topics,
+Use `tag_kmpc_pipeline_interfaces.py` for a compact list of the relevant topics,
 services, and source files.
