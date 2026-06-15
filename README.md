@@ -1,6 +1,8 @@
 # Humanoid Mobile Manipulation Repository
 
-This repository is part of our ongoing research work, which is currently under submission. It contains the implementation of various components for humanoid mobile manipulation tasks. Below is an overview of the repository structure and its purpose:
+This repository contains components for humanoid mobile manipulation tasks,
+including perception, navigation, manipulation, and imitation-learning
+workflows.
 
 ## Repository Structure
 

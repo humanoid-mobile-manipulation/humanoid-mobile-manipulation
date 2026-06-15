@@ -8,11 +8,10 @@ end-to-end inference/deployment reference.
 The scripts use configurable dataset, checkpoint, and camera-calibration paths
 so they can be adapted to a local setup.
 
-This module corresponds to the paper's SPS learning-based visual perception
-pipeline in Sec. III-C. It is separate from `imitation_learning_framework/`:
-the perception pipeline selects the target-part candidate that downstream
-manipulation or IL policy code can consume, but it is not itself an IL
-policy-training module.
+This module implements the SPS learning-based visual perception pipeline. It is
+separate from `imitation_learning_framework/`: the perception pipeline selects
+the target-part candidate that downstream manipulation or IL policy code can
+consume, but it is not itself an IL policy-training module.
 
 In the full SPS workflow, this module provides the learning-based visual target
 selection stage. The downstream learning-based manipulation policy is trained
@@ -133,27 +132,6 @@ cd perception/sps_part_perception
 python3 mask_score/build_mask_score_dataset.py --data_root mask_score/data_org_files --output_root mask_score/scoredds_pklfiles --train_ratio 0.7
 python3 mask_score/train_mask_score_model.py
 ```
-
-## Dataset Statistics for the Paper Text
-
-For the ablation sentence:
-
-```text
-The evaluation is conducted on [XX] candidate-part samples collected from [XX]
-scenes and 9 part categories. The dataset is split into training, validation,
-and test sets with a ratio of [XX/XX/XX].
-```
-
-use the following definitions:
-
-- candidate-part samples: number of generated per-mask PKL samples;
-- scenes: number of original RGB-D frames before splitting into candidate masks;
-- categories: 9, matching the paper;
-- split: the actual split used by your generated PKL folders.
-
-The recovered training script currently uses a train/test split, not a distinct
-train/validation/test split. If no separate validation set was used, report it as
-a training/held-out evaluation split instead of claiming three splits.
 
 ## Notes
 

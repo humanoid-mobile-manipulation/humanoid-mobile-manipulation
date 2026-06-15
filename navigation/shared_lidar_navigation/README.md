@@ -5,7 +5,7 @@ SMT mobile-manipulation workflows.
 
 ## Pipeline Components
 
-The manuscript uses a LiDAR-inertial navigation stack to move the humanoid robot
+The navigation workflow uses a LiDAR-inertial stack to move the humanoid robot
 to calibrated task-facing standing poses before the perception and manipulation
 stages.
 
